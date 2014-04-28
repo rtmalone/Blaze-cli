@@ -20,10 +20,17 @@ I want to add a trail to the log for either a hike, run, or bike<br />
 <hr />
 
 As a user<br />
+In order to view my trail entries<br />
+I want to run a list<br />
+
+  - User runs `blaze list`
+
+<hr />
+
+As a user<br />
 In order to maintain my log<br />
 I want to edit a trail entry<br />
 
-  - User runs `blaze list`
   - User runs `blaze edit <trail_id>`
   - User chooses from menu which field to edit
   - User is prompted to input new data
@@ -34,7 +41,6 @@ As a user<br />
 In order to maintain my log<br />
 I want to delete a trail entry<br />
 
-  - User runs `blaze list`
   - User runs `blaze delete <trail_id>`
   _ User is prompted to confirm deletion
 
@@ -53,7 +59,6 @@ As a user<br />
 In order to see a totals for a specific trail<br />
 I want to run a report against a single trail<br />
 
-  - User runs `blaze list`
   - User runs `blaze report <trail_id>`
   - User is shown data totals for specified trail
 
