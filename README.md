@@ -6,7 +6,7 @@ Blaze-lite allows you to create and maintain a log of trails "bagged" while hiki
 Dependecies
 -----------
 
--MySQL
+- MySQL
 
 Setup
 -----
