@@ -15,7 +15,7 @@ In order to keep my log current<br />
 I want to add a trail to the log for either a hike, run, or bike<br />
 
   - User runs `blaze <hike/run/bike>`
-  - User is guided via questionsof menu choices to input data about the hike, run, or bike
+  - User is guided via questions and menu choices to input data about the hike, run, or bike
 
 <hr />
 
