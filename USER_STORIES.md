@@ -65,7 +65,7 @@ I want to run a report against a single trail<br />
 <hr />
 
 As a user<br />
-I order to see data which shares common data<br />
+I order to see entries which shares common data<br />
 I want so search by certain fields<br />
 
   - User runs `blaze search`
