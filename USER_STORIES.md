@@ -35,7 +35,7 @@ In order to maintain my log<br />
 I want to delete a trail entry<br />
 
   - User runs `blaze list`
-  - User runs `blazze delete <trail_id>`
+  - User runs `blaze delete <trail_id>`
   _ User is prompted to confirm deletion
 
 <hr />
