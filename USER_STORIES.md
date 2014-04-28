@@ -28,7 +28,7 @@ I want to edit a trail entry<br />
   - User chooses from menu which field to edit
   - User is prompted to input new data
 
- <hr />
+<hr />
 
 As a user<br />
 In order to maintain my log<br />
