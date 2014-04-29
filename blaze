@@ -1,1 +1,29 @@
 #!/usr/bin/env ruby
+
+def menu
+  puts <<-EOS
+Welcome to Blaze-cli!
+Please choose a number:
+  1. Log a trail
+  2. View log
+  3. Search log
+EOS
+end
+
+def get_menu_selection
+  puts menu
+  input = gets
+  return unless input
+  input.chomp!
+  if input == "1"
+    puts "What is the trail name?"
+  elsif input == "2"
+    puts "Your Blaze-cli trail log:"
+  elsif input == "3"
+    puts "Select what you'd like to search:"
+  else
+    puts "'#{input}' is not valid. Please try again."
+    get_menu_selection
+  end
+end
+get_menu_selection

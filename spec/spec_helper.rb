@@ -11,3 +11,12 @@ def blaze_with_input(*inputs)
   end
   shell_output
 end
+
+RSpec::Matchers.define :include_in_order do |*expected|
+  match do |actual|
+    input = actual.delete("\n")
+    regexp_string = expected.join(".*").gsub("?","\\?").gsub("\n",".*")
+    result = /#{regexp_string}/.match(input)
+    result.should be
+  end
+end
