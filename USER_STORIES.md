@@ -5,7 +5,7 @@ As a user<br />
 In order to use Blaze-lite<br />
 I want to see a menu of choices to implement<br />
 
-  - User runs `blaze start`
+  - User runs `./blaze`
   - User is shown a menu of options
 
 <hr />
