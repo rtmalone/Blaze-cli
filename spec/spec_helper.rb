@@ -1,4 +1,11 @@
 require 'rspec/expectations'
+$LOAD_PATH << "lib"
+$LOAD_PATH << "models"
+
+require 'environment'
+require 'trail'
+
+Environment.environment = "test"
 
 def blaze_with_input(*inputs)
   shell_output = ""
@@ -20,3 +27,9 @@ RSpec::Matchers.define :include_in_order do |*expected|
     result.should be
   end
 end
+
+#RSpec.configure do |config|
+#  config.after(:each) do
+#    Environment.database_connection.execute("DELETE FROM trails;")
+#  end
+#end
