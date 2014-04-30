@@ -3,7 +3,8 @@ require_relative 'spec_helper'
 describe "Menu Integration" do
   let(:menu_text) do
 <<-EOS
-Welcome to Blaze-cli!
+_-_ Welcome to Blaze-cli! _-_
+
 Please choose a number:
   1. Log a trail
   2. View log
