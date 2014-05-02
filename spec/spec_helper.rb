@@ -28,8 +28,8 @@ RSpec::Matchers.define :include_in_order do |*expected|
   end
 end
 
-#RSpec.configure do |config|
-#  config.after(:each) do
-#    Environment.database_connection.execute("DELETE FROM trails;")
-#  end
-#end
+RSpec.configure do |config|
+  config.after(:each) do
+    Environment.database_connection.execute("DELETE FROM trails;")
+  end
+end
