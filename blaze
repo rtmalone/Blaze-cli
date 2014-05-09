@@ -6,7 +6,7 @@ $LOAD_PATH << "models"
 require 'trail'
 require 'environment'
 
-Environment.environment = 'test'
+Environment.environment = ENV["ENVIRONMENT"] || "production"
 
 def menu
   puts <<-EOS

@@ -9,7 +9,7 @@ Environment.environment = "test"
 
 def blaze_with_input(*inputs)
   shell_output = ""
-  IO.popen('./blaze', 'r+') do |pipe|
+  IO.popen('ENVIRONMENT=test ./blaze', 'r+') do |pipe|
     inputs.each do |input|
       pipe.puts input
     end
