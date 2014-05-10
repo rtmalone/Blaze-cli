@@ -11,7 +11,7 @@ describe Trail do
 
   context "#create" do
     let(:result){ Environment.database_connection.execute("SELECT * FROM trails") }
-    let!(:trail){ Trail.create("foo", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note") }
+    let(:trail){ Trail.create("foo", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note") }
     context "with a valid trail name" do
       before do
         Trail.any_instance.stub(:valid?){ true }

@@ -41,21 +41,22 @@ class Trail
                                                       self.park, self.state, self.notes])
     end
     if valid?
-      puts "is this running!!!!!!!"
-      query = "insert into trails (name, date, activity_id, length, difficulty_id, trail_type_id, park, state, notes) values (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+      puts "#{self.name} ----- is this running!!!!!!!"
+      query = "insert into trails (name, date, activity_id, length, difficulty_id, trail_type_id, park, state, notes) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
       Environment.database_connection.execute(query, [name, date, activity_id, length, difficulty_id, trail_type_id, park, state, notes])
+      puts "#{self.name}<<<<<<<<<<<<"
       @id = Environment.database_connection.execute("SELECT last_insert_rowid();")[0][0]
       true
     else
       false
     end
-    puts "#{self.id} !!!!!!!!!!!!!!!!!!!????????"
+    puts "#{self.name} !!!!!!!!!!!!!!!!!!!????????"
   end
 
   def valid?
     @errors = []
     if !name.match /[a-zA-Z]/
-      @errors << "'#{self.name}' is not a valid student first name, as it does not include any letters."
+      @errors << "'#{self.name}' is not a valid trail name, as it does not include any letters."
     end
     @errors.empty?
   end
