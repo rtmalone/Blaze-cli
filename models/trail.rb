@@ -16,7 +16,7 @@ class Trail
 
   def self.all
     query = "SELECT * FROM trails;"
-    execute_and_instantiate(statement)
+    execute_and_instantiate(query)
   end
 
   def self.count
@@ -31,6 +31,11 @@ class Trail
     trail
   end
 
+  def self.last
+    query = "SELECT * FROM trails ORDER BY id DESC LIMIT(1)"
+    execute_and_instantiate(query)[0]
+  end
+
   def save
     if self.id
       query = "UPDATE trails
@@ -41,16 +46,13 @@ class Trail
                                                       self.park, self.state, self.notes])
     end
     if valid?
-      puts "#{self.name} ----- is this running!!!!!!!"
       query = "insert into trails (name, date, activity_id, length, difficulty_id, trail_type_id, park, state, notes) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
       Environment.database_connection.execute(query, [name, date, activity_id, length, difficulty_id, trail_type_id, park, state, notes])
-      puts "#{self.name}<<<<<<<<<<<<"
       @id = Environment.database_connection.execute("SELECT last_insert_rowid();")[0][0]
       true
     else
       false
     end
-    puts "#{self.name} !!!!!!!!!!!!!!!!!!!????????"
   end
 
   def valid?
@@ -63,11 +65,11 @@ class Trail
 
   private
 
-  def execute_and_instantiate
+  def self.execute_and_instantiate(statement, bind_vars = [])
     rows = Environment.database_connection.execute(statement, bind_vars)
     results = []
     rows.each do |row|
-      trail = Trail.new(row["name"])
+      trail = Trail.new(row["name"], row["date"], row["activity_id"], row["length"], row["difficulty_id"], row["trail_type_id"], row["park"], row["state"], row["notes"])
       trail.instance_variable_set(:@id, row["id"])
       results << trail
     end
