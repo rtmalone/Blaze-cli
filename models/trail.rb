@@ -31,6 +31,11 @@ class Trail
     trail
   end
 
+  def delete
+    query = "DELETE FROM trails WHERE id =?"
+    Environment.database_connection.execute(query, self.id)
+  end
+
   def self.last
     query = "SELECT * FROM trails ORDER BY id DESC LIMIT(1)"
     execute_and_instantiate(query)[0]

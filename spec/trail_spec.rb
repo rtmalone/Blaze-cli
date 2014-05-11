@@ -151,4 +151,27 @@ describe Trail do
     end
   end
 
+  context "#delete" do
+    context "with only one trail in the db" do
+      let(:trail){ Trail.create("South Mac Trail", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note") }
+      before do
+        trail.delete
+      end
+      it "should delete the trail from the db" do
+        Trail.count.should == 0
+      end
+    end
+    context "with multiple trails in the db" do
+      let!(:foo){Trail.create("foo", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note")}
+      let!(:bar){Trail.create("bar", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note")}
+      let!(:grille){Trail.create("grille", "10/11/12", "1", "5 mi", "1", "1", "GSMNP", "TN", "This is a note")}
+      before do
+        bar.delete
+      end
+      it "should only delete one student from the database" do
+        Trail.count.should == 2
+      end
+    end
+  end
+
 end
