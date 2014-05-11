@@ -32,7 +32,7 @@ class Trail
   end
 
   def delete
-    query = "DELETE FROM trails WHERE id =?"
+    query = "DELETE FROM trails WHERE id = ?"
     Environment.database_connection.execute(query, self.id)
   end
 
