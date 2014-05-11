@@ -5,47 +5,137 @@ $LOAD_PATH << "models"
 
 require 'trail'
 require 'environment'
+require 'colorize'
 
 Environment.environment = ENV["ENVIRONMENT"] || "production"
 
-def menu
+# ------ Menu methods ------
+
+def primary_menu
+  puts "_-_ Welcome to Blaze-cli! _-_".green
+  puts main_menu_choices
+end
+
+def secondary_menu
+  puts "What would you like to do now?".green
+  puts main_menu_choices
+end
+
+def main_menu_choices
   puts <<-EOS
-_-_ Welcome to Blaze-cli! _-_
 
 Please choose a number:
-  1. Log a trail
-  2. View log
-  3. Search log
+  <1> Log a trail
+  <2> View log
+  <3> Search log
+  <4> Exit
 EOS
+get_menu_selection
 end
 
 def get_menu_selection
-  puts menu
   input = gets
   return unless input
   input.chomp!
   if input == "1"
     add_trail
   elsif input == "2"
-    puts "Your Blaze-cli trail log:"
+    show_log
   elsif input == "3"
-    puts "Select what you'd like to search:"
+    search_log
+  elsif input == "4"
+    puts "Good bye".green
+    exit
   else
     puts "'#{input}' is not valid. Please try again."
     get_menu_selection
   end
 end
 
+# ------ Methods called by get_menu_selection ------
+
+def show_log
+  puts "Your Blaze-cli trail log:"
+end
+
+def search_log
+  puts "Select what criteria you'd like to search:"
+end
+
 def add_trail
-  puts "What is the trail name?"
-  trail_name = gets.chomp
-  trail = Trail.new(trail_name)
+  puts "What is the trail name?".green.underline
+  trail_name = gets.chomp!
+  return unless trail_name
+
+  puts "Enter date(s) on trail:".green.underline
+  date = gets.chomp!
+
+  puts activity_menu
+  activity_type = gets.chomp!
+
+  puts "Enter distance covered:".green.underline
+  length = gets.chomp!
+
+  puts trail_class_menu
+  difficulty = gets.chomp!
+
+  puts trail_type_menu
+  trail_type = gets.chomp!
+
+  puts "Enter park name:".green.underline
+  park = gets.chomp!
+
+  puts "Enter state:".green.underline
+  state = gets.chomp!
+
+  puts "Record any notes about #{trail_name} and/or the #{activity_type}:".green.underline
+  notes = gets.chomp!
+
+  trail = Trail.new(trail_name, date = "n/a", activity_type = "n/a",
+                    length = "n/a", difficulty = "n/a", trail_type = "n/a",
+                    park = "n/a", state = "n/a", notes = "n/a")
   if trail.save
-    puts "#{trail_name} has been added."
+    puts "'#{trail_name}' has been added to your log!".red.on_green
+    secondary_menu
   else
     puts injury.errors
     add_trail
   end
 end
 
-get_menu_selection
+# ------ Adding a trail helper methods ------
+
+def activity_menu
+  puts "Choose activity type:".green.underline
+  puts <<-EOS
+
+  <1> Hike
+  <2> Run
+  <3> Bike
+EOS
+end
+
+def trail_class_menu
+  puts "Choose the trail class:".green.underline
+  puts <<-EOS
+
+  <1> Class 1 - Minimally Developed
+  <2> Class 2 - Moderately Developed
+  <3> Class 3 - Developed
+  <4> Class 4 - Highly Developed
+  <5> Class 5 - Fully Developed
+EOS
+end
+
+def trail_type_menu
+  puts "What was the trail type?".green.underline
+  puts <<-EOS
+
+  <1> Loop
+  <2> Semi-Loop
+  <3> Out and back
+  <4> Point to point
+EOS
+end
+
+primary_menu

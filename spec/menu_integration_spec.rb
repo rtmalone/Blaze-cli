@@ -6,9 +6,9 @@ describe "Menu Integration" do
 _-_ Welcome to Blaze-cli! _-_
 
 Please choose a number:
-  1. Log a trail
-  2. View log
-  3. Search log
+  <1> Log a trail
+  <2> View log
+  <3> Search log
 EOS
 end
   context "the starting menu should display when app is run" do
@@ -39,13 +39,13 @@ end
     end
   end
 
-  context "user selects option 4" do
-    let(:shell_output){ blaze_with_input("4") }
+  context "user selects option 10" do
+    let(:shell_output){ blaze_with_input("10") }
     it "should raise error" do
-      shell_output.should include("'4' is not valid. Please try again.")
+      shell_output.should include("'10' is not valid. Please try again.")
     end
     it "should print the menu again" do
-      shell_output.should include_in_order(menu_text, "4", menu_text)
+      shell_output.should include_in_order(menu_text, "10", menu_text)
     end
   end
 
@@ -67,7 +67,7 @@ end
   end
 
   context "user enters wrong input multiple times" do
-    let(:shell_output){ blaze_with_input("4", "8", "I'm incompentent on a keyboard", "2")}
+    let(:shell_output){ blaze_with_input("10", "8", "I'm incompentent on a keyboard", "2")}
     it "should continue printing menu until correct selection" do
       shell_output.should include("Your Blaze-cli trail log:")
     end
