@@ -24,5 +24,6 @@ Setup database from Blaze-cli root directory:
 
 How do I use this?
 ------------------
+Read the "About Trail Classes" option
 
 From the Blaze-cli root directory in your command line run `./blaze`
