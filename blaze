@@ -4,6 +4,7 @@ $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
 require 'trail'
+require 'manual'
 require 'environment'
 require 'colorize'
 
@@ -29,7 +30,7 @@ def main_menu_choices
 Please choose a number:
   <1> Log a trail
   <2> View log
-  <3> Search log
+  <3> About Trail Classes
   <4> Quit Blaze-cli
 EOS
 get_menu_selection
@@ -44,7 +45,8 @@ def get_menu_selection
   elsif input == "2"
     show_log
   elsif input == "3"
-    search_log
+    Manual.print_man
+    secondary_menu
   elsif input == "4"
     puts "Happy Trails!".red
     exit
@@ -143,7 +145,7 @@ end
 
 def log_options
   puts "Options:"
-  puts "<1> Log a Trail  <2> Edit Trail  <3> Delete Trail  <4> Search Log  <5> Quit Blaze-cli".green.underline
+  puts "<1> Log a Trail  <2> Edit Trail  <3> Delete Trail  <4> About Trail Classes  <5> Quit Blaze-cli".green.underline
   input = gets.chomp!
   return unless input
   if input == "1"
@@ -153,7 +155,8 @@ def log_options
   elsif input == "3"
     delete_trail
   elsif input == "4"
-    search_log
+    Manual.print_man.magenta
+    secondary_menu
   elsif input == "5"
     puts "Happy Trails!".red
     exit
