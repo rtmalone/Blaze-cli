@@ -3,7 +3,6 @@ $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
 require 'environment'
-require 'trail'
 
 Environment.environment = "test"
 

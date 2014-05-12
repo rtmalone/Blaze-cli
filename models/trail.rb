@@ -1,4 +1,4 @@
-class Trail
+class Trail < ActiveRecord::Base
   attr_reader :id, :errors
   attr_accessor :name, :date, :activity_id, :length, :difficulty_id, :trail_type_id,:park, :state, :notes
 
