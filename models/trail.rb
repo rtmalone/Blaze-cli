@@ -68,6 +68,10 @@ class Trail
     @errors.empty?
   end
 
+  def to_s
+    "ID: #{@id}, FIRST NAME: #{name}, LAST NAME: #{date}, COHORT ID: #{activity_id}, ALUMNI: #{notes}"
+  end
+
   private
 
   def self.execute_and_instantiate(statement, bind_vars = [])

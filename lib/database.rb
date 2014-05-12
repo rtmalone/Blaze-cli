@@ -24,11 +24,17 @@ class Database < SQLite3::Database
     self.execute("CREATE TABLE activity (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(50))")
     self.execute("CREATE TABLE difficulty (id INTEGER PRIMARY KEY AUTOINCREMENT, class varchar(50), class_summary varchar(50))")
     self.execute("INSERT INTO trail_type (name) VALUES ('Loop')")
+    self.execute("INSERT INTO trail_type (name) VALUES ('Semi-loop')")
     self.execute("INSERT INTO trail_type (name) VALUES ('Out and back')")
+    self.execute("INSERT INTO trail_type (name) VALUES ('Point to point')")
     self.execute("INSERT INTO activity (name) VALUES ('Hike')")
     self.execute("INSERT INTO activity (name) VALUES ('Run')")
+    self.execute("INSERT INTO activity (name) VALUES ('Bike')")
     self.execute("INSERT INTO difficulty (class, class_summary) VALUES ('Class 1', 'Minimally Developed')")
     self.execute("INSERT INTO difficulty (class, class_summary) VALUES ('Class 2', 'Moderately Developed')")
+    self.execute("INSERT INTO difficulty (class, class_summary) VALUES ('Class 3', 'Developed')")
+    self.execute("INSERT INTO difficulty (class, class_summary) VALUES ('Class 4', 'Highly Developed')")
+    self.execute("INSERT INTO difficulty (class, class_summary) VALUES ('Class 5', 'Fully Developed')")
 end
 
   def execute(statement, bind_vars = [])

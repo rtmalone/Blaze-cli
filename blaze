@@ -56,6 +56,7 @@ end
 
 def show_log
   puts "Your Blaze-cli trail log:"
+  Trail.all.map {|trail| puts "#{trail.to_s}"}
 end
 
 def search_log
