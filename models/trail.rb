@@ -31,14 +31,28 @@ class Trail
     trail
   end
 
-  def delete
+  def self.delete(id)
     query = "DELETE FROM trails WHERE id = ?"
-    Environment.database_connection.execute(query, self.id)
+    Environment.database_connection.execute(query, id)
+  end
+
+  def self.join_string(result)
+    "#{result["id"]} : #{result["name"]}, #{result["date"]}, #{result["activity"]}, #{result["length"]}, #{result["class"]}, #{result["type"]}, #{result["park"]}, #{result["state"]}, #{result["notes"]}"
   end
 
   def self.last
     query = "SELECT * FROM trails ORDER BY id DESC LIMIT(1)"
     execute_and_instantiate(query)[0]
+  end
+
+  def self.print_log
+    query = ("SELECT trails.id, trails.name, trails.date, activity.name AS activity, trails.length, difficulty.class, trail_type.name AS type, trails.park, trails.state, trails.notes
+              FROM trails
+              JOIN activity ON trails.activity_id = activity.id
+              JOIN difficulty ON trails.difficulty_id = difficulty.id
+              JOIN trail_type ON trails.trail_type_id = trail_type.id;")
+    result = Environment.database_connection.execute(query)
+    result
   end
 
   def save
@@ -69,7 +83,9 @@ class Trail
   end
 
   def to_s
-    "ID: #{@id}, FIRST NAME: #{name}, LAST NAME: #{date}, COHORT ID: #{activity_id}, ALUMNI: #{notes}"
+    new_date = date.to_s
+    #"#{@id}, #{name}, #{new_date}, #{activity_id}, #{length}, #{difficulty_id}, #{trail_type_id}, #{park}, #{state}, #{notes}"
+    "ID: #{@id}, TRAIL: #{name}, DATE: #{new_date}, ACTIVITY: #{activity_id}, LENGTH: #{length}, CLASS: #{difficulty_id}, TYPE: #{trail_type_id}, PARK: #{park}, STATE: #{state}, NOTES: #{notes}"
   end
 
   private

@@ -28,7 +28,7 @@ Please choose a number:
   <1> Log a trail
   <2> View log
   <3> Search log
-  <4> Exit
+  <4> Quit Blaze-cli
 EOS
 get_menu_selection
 end
@@ -44,7 +44,7 @@ def get_menu_selection
   elsif input == "3"
     search_log
   elsif input == "4"
-    puts "Good bye".green
+    puts "Happy Trails!".red
     exit
   else
     puts "'#{input}' is not valid. Please try again."
@@ -55,8 +55,11 @@ end
 # ------ Methods called by get_menu_selection ------
 
 def show_log
-  puts "Your Blaze-cli trail log:"
-  Trail.all.map {|trail| puts "#{trail.to_s}"}
+  puts "Your Blaze-cli trail log:".green.center(90)
+  puts "Trail ID | Name | Activity | Distance Covered | Trail Class | Type | Park | State | Notes"
+  Trail.print_log.map {|trail| puts "#{Trail.join_string(trail).green}"}
+
+  puts log_options
 end
 
 def search_log
@@ -89,12 +92,12 @@ def add_trail
   puts "Enter state:".green.underline
   state = gets.chomp!
 
-  puts "Record any notes about #{trail_name} and/or the #{activity_type}:".green.underline
+  puts "Record any notes about #{trail_name}:".green.underline
   notes = gets.chomp!
 
-  trail = Trail.new(trail_name, date = "n/a", activity_type = "n/a",
-                    length = "n/a", difficulty = "n/a", trail_type = "n/a",
-                    park = "n/a", state = "n/a", notes = "n/a")
+  trail = Trail.new(trail_name, date, activity_type,
+                    length, difficulty, trail_type,
+                    park, state, notes)
   if trail.save
     puts "'#{trail_name}' has been added to your log!".red.on_green
     secondary_menu
@@ -137,6 +140,42 @@ def trail_type_menu
   <3> Out and back
   <4> Point to point
 EOS
+end
+
+def log_options
+  puts "Options:"
+  puts "<1> Add Trail  <2> Edit Trail  <3> Delete Trail  <4> Search Log  <5> Quit Blaze-cli"
+  input = gets.chomp!
+  return unless input
+  if input == "1"
+    add_trail
+  elsif input == "2"
+    edit_trail
+  elsif input == "3"
+    delete_trail
+  elsif input == "4"
+    search_log
+  elsif input == "5"
+    puts "Happy Trails!".red
+    exit
+  else
+    puts "'#{input}' is not valid. Please try again."
+    show_log
+  end
+end
+
+def delete_trail
+  puts "Enter the ID of the trail you wish to delete:".red
+  id = gets.chomp!
+  puts "Are you sure you want to continue? (y/n)".red
+  response = gets.chomp!
+  if response == "y"
+    Trail.delete(id)
+    puts "Trail record was deleted".red
+    show_log
+  else
+    show_log
+  end
 end
 
 primary_menu
