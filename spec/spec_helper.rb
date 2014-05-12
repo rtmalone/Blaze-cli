@@ -3,6 +3,9 @@ $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
 require 'environment'
+require 'trail'
+require 'manual'
+require 'colorize'
 
 Environment.environment = "test"
 
@@ -28,7 +31,6 @@ RSpec::Matchers.define :include_in_order do |*expected|
 end
 
 RSpec.configure do |config|
-  config.color_enabled = true
   config.after(:each) do
     Environment.database_connection.execute("DELETE FROM trails;")
   end

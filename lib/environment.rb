@@ -14,7 +14,8 @@ class Environment
   end
 
   def self.database_connection
-    Database.connection(@@environment)
+    connection_details = YAML::load(File.open('config/database.yml'))
+    ActiveRecord::Base.establish_connection
   end
 
   def self.logger

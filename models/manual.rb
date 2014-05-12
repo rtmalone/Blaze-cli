@@ -1,4 +1,4 @@
-class Manual
+class Manual < ActiveRecord::Base
 
   def self.print_man
     puts"      About Trail Classes:

@@ -3,11 +3,6 @@
 $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
-require 'trail'
-require 'manual'
-require 'environment'
-require 'colorize'
-
 Environment.environment = ENV["ENVIRONMENT"] || "production"
 
 # ------ Menu methods ------
