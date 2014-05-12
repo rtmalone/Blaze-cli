@@ -155,7 +155,7 @@ def log_options
   elsif input == "3"
     delete_trail
   elsif input == "4"
-    Manual.print_man.magenta
+    Manual.print_man
     secondary_menu
   elsif input == "5"
     puts "Happy Trails!".red
