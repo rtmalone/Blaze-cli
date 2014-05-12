@@ -18,6 +18,10 @@ Clone this repo:
 
 `git clone https://github.com/rtmalone/Blaze-cli`
 
+Setup database from Blaze-cli root directory:
+
+`rake bootstrap_database`
+
 How do I use this?
 ------------------
 
