@@ -12,12 +12,14 @@ Environment.environment = ENV["ENVIRONMENT"] || "production"
 # ------ Menu methods ------
 
 def primary_menu
+  print "\n"
   puts "_-_ Welcome to Blaze-cli! _-_".green
   puts main_menu_choices
 end
 
 def secondary_menu
-  puts "What would you like to do now?".green
+  print "\n"
+  puts "What would you like to do now?".green.underline
   puts main_menu_choices
 end
 
@@ -47,7 +49,7 @@ def get_menu_selection
     puts "Happy Trails!".red
     exit
   else
-    puts "'#{input}' is not valid. Please try again."
+    puts "'#{input}' is not valid. Please try again.".red
     get_menu_selection
   end
 end
@@ -55,15 +57,15 @@ end
 # ------ Methods called by get_menu_selection ------
 
 def show_log
-  puts "Your Blaze-cli trail log:".green.center(90)
-  puts "Trail ID | Name | Activity | Distance Covered | Trail Class | Type | Park | State | Notes"
-  Trail.print_log.map {|trail| puts "#{Trail.join_string(trail).green}"}
+  puts "Your Blaze-cli trail log:".green.underline.center(90)
+  puts "Trail ID | Name | Date | Activity | Distance Covered | Trail Class | Type | Park | State | Notes"
+  Trail.print_log.map {|trail| puts "#{Trail.join_string(trail).blue.bold}"}
 
   puts log_options
 end
 
 def search_log
-  puts "Select what criteria you'd like to search:"
+  puts "Select what criteria you'd like to search:".green.underline
 end
 
 def add_trail
@@ -99,7 +101,7 @@ def add_trail
                     length, difficulty, trail_type,
                     park, state, notes)
   if trail.save
-    puts "'#{trail_name}' has been added to your log!".red.on_green
+    puts "'#{trail_name}' has been added to your log!".red
     secondary_menu
   else
     puts injury.errors
@@ -112,7 +114,6 @@ end
 def activity_menu
   puts "Choose activity type:".green.underline
   puts <<-EOS
-
   <1> Hike
   <2> Run
   <3> Bike
@@ -122,7 +123,6 @@ end
 def trail_class_menu
   puts "Choose the trail class:".green.underline
   puts <<-EOS
-
   <1> Class 1 - Minimally Developed
   <2> Class 2 - Moderately Developed
   <3> Class 3 - Developed
@@ -134,7 +134,6 @@ end
 def trail_type_menu
   puts "What was the trail type?".green.underline
   puts <<-EOS
-
   <1> Loop
   <2> Semi-Loop
   <3> Out and back
@@ -144,7 +143,7 @@ end
 
 def log_options
   puts "Options:"
-  puts "<1> Add Trail  <2> Edit Trail  <3> Delete Trail  <4> Search Log  <5> Quit Blaze-cli"
+  puts "<1> Log a Trail  <2> Edit Trail  <3> Delete Trail  <4> Search Log  <5> Quit Blaze-cli".green.underline
   input = gets.chomp!
   return unless input
   if input == "1"
@@ -159,13 +158,13 @@ def log_options
     puts "Happy Trails!".red
     exit
   else
-    puts "'#{input}' is not valid. Please try again."
+    puts "'#{input}' is not valid. Please try again.".red
     show_log
   end
 end
 
 def delete_trail
-  puts "Enter the ID of the trail you wish to delete:".red
+  puts "Enter the ID of the trail you wish to delete:".red.underline
   id = gets.chomp!
   puts "Are you sure you want to continue? (y/n)".red
   response = gets.chomp!
@@ -176,6 +175,87 @@ def delete_trail
   else
     show_log
   end
+end
+
+def self.edit_trail
+  puts "Enter the ID of the trail you wish to edit:".green.underline
+  id = gets.chomp!
+  puts "What field would you like to edit?"
+  edit_menu
+  input = gets.chomp!
+  return unless input
+  if input == "1"
+    puts "What is the trail name?".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("name", response, id)
+    puts "Name has been edited.".red
+    show_log
+  elsif input == "2"
+    puts "Enter date(s) on the trail:".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("date", response, id)
+    puts "Date has been edited.".red
+    show_log
+  elsif input == "3"
+    puts activity_menu
+    response = gets.chomp!
+    Trail.edit_trail_entry("activity_id", response, id)
+    puts "Activity has been edited.".red
+    show_log
+  elsif input == "4"
+    puts "Enter distance covered:".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("length", response, id)
+    puts "Distance has been edited.".red
+    show_log
+  elsif input == "5"
+    puts trail_class_menu
+    response = gets.chomp!
+    Trail.edit_trail_entry("difficulty_id", response, id)
+    puts "Class has been edited.".red
+    show_log
+  elsif input == "6"
+    puts trail_type_menu
+    response = gets.chomp!
+    Trail.edit_trail_entry("trail_type_id", response, id)
+    puts "Type has been edited.".red
+    show_log
+  elsif input == "7"
+    puts "Enter park name:".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("park", response, id)
+    puts "Park has been edited.".red
+    show_log
+  elsif input == "8"
+    puts "Enter state:".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("state", response, id)
+    puts "State has been edited.".red
+    show_log
+  elsif input == "9"
+    puts "Enter new notes".green.underline
+    response = gets.chomp!
+    Trail.edit_trail_entry("notes", response, id)
+    puts "Notes have been edited.".red
+    show_log
+  else
+    show_log
+  end
+end
+
+def edit_menu
+  puts "What field would you like to edit?".green.underline
+  puts <<-EOS
+  <1> Name
+  <2> Date
+  <3> Activity
+  <4> Distance Covered
+  <5> Trail Class
+  <6> Type
+  <7> Park
+  <8> State
+  <9> Notes
+EOS
 end
 
 primary_menu

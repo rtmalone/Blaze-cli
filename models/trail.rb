@@ -36,6 +36,11 @@ class Trail
     Environment.database_connection.execute(query, id)
   end
 
+  def self.edit_trail_entry(column, new_entry, id)
+    query = "UPDATE trails SET #{column} = '#{new_entry}' WHERE id = #{id}"
+    Environment.database_connection.execute(query)
+  end
+
   def self.join_string(result)
     "#{result["id"]} : #{result["name"]}, #{result["date"]}, #{result["activity"]}, #{result["length"]}, #{result["class"]}, #{result["type"]}, #{result["park"]}, #{result["state"]}, #{result["notes"]}"
   end
