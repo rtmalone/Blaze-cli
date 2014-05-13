@@ -8,5 +8,6 @@ class CreateDifficulty < ActiveRecord::Migration
       t.string :features
       t.string :signage
       t.timestamps
+    end
   end
 end

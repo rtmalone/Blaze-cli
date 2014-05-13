@@ -4,7 +4,7 @@ $LOAD_PATH << "lib"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => ['db:test:prepare']:spec
+task :default => ['db:test:prepare', :spec]
 
 require 'environment'
 
