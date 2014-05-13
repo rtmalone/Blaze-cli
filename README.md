@@ -10,6 +10,7 @@ Dependecies
 - SQLite
 - Ruby
 - RSpec
+- colorize
 
 Setup
 -----
